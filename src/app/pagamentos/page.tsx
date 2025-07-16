@@ -90,3 +90,100 @@ export default function PagamentoPage() {
       setError("Erro ao deletar pagamento.");
     }
   };
+
+
+
+  return (
+    <div className="p-4 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Gerenciar Pagamentos</h1>
+
+      {error && <p className="text-red-500 mb-2">{error}</p>}
+
+      <form onSubmit={handleSubmit} className="mb-6 space-y-2 bg-blue-50 p-4 rounded shadow">
+        <div>
+          <label className="block font-semibold" htmlFor="descricao">Descrição</label>
+          <input
+            id="descricao"
+            name="descricao"
+            type="text"
+            value={form.descricao}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold" htmlFor="valor">Valor (R$)</label>
+          <input
+            id="valor"
+            name="valor"
+            type="number"
+            value={form.valor}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+            min="0"
+            step="0.01"
+          />
+        </div>
+
+        <div>
+          <label className="block font-semibold" htmlFor="data">Data</label>
+          <input
+            id="data"
+            name="data"
+            type="date"
+            value={form.data}
+            onChange={handleChange}
+            className="w-full border rounded px-2 py-1"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          {editId ? "Atualizar Pagamento" : "Criar Pagamento"}
+        </button>
+      </form>
+
+      <ul className="space-y-3">
+        {pagamentos.length === 0 && <p>Nenhum pagamento encontrado.</p>}
+
+        {pagamentos.map((pagamento) => (
+          <li
+            key={pagamento.id}
+            className="bg-blue-100 p-4 rounded shadow hover:bg-blue-200 transition cursor-default"
+          >
+            <p><strong>Descrição:</strong> {pagamento.descricao}</p>
+            <p><strong>Valor:</strong> R$ {pagamento.valor}</p>
+            <p><strong>Data:</strong> {new Date(pagamento.data).toLocaleDateString()}</p>
+
+            <button
+              type="button"
+              onClick={() => handleEdit(pagamento)}
+              className="mr-2 mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Editar
+            </button>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await handleDelete(pagamento.id);
+              }}
+              className="inline"
+            >
+              <button
+                type="submit"
+                className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Deletar
+              </button>
+            </form>
+          </li>
+        ))}
+      </ul>
+    </div>
+  
+  );
+}
