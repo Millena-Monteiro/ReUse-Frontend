@@ -1,39 +1,15 @@
-// Importa a Footer
+import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
+import Sobre from "../components/ui/sobre";
 
-// Página principal da ReUse+
-
-{
-  /* Aqui futuramente vai o Header */
-}
-{
-  /* <Header /> */
-}
-
-{
-  /* Aqui futuramente vai a seção de boas-vindas (Hero) */
-}
-{
-  /* <Hero /> */
-}
-
-{
-  /* Aqui futuramente vai a seção Sobre */
-}
-{
-  /* <About /> */
-}
-
-{
-  /* Aqui futuramente vão os Benefícios ou Funcionalidades */
-}
-{
-  /* <Features /> */
-}
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col justify-between">
+    <>
+      <Header />
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <Sobre />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
