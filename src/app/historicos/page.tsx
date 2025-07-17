@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import api from "../../axios";
+import api from "../../lib/api";
 
 // Tipo para histórico de transações
 interface Historico {
