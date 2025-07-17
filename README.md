@@ -109,7 +109,6 @@ COLOCAR O LINK AQUI
 | DELETE | /pagamentos/:id | Deleta um item |
 
 ```
----
 
 ## 👥 Contribuidores
 - Millena Monteiro
@@ -120,8 +119,7 @@ COLOCAR O LINK AQUI
 - Gisele Gomes
 
 ---
-
-##  🌎 Links do Projeto
+## 🌎 Links do Projeto
 - 🔗 [GitHub da API](https://github.com/BiaVB/ReUSE-)
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
