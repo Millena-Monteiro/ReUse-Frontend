@@ -16,10 +16,6 @@ O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em 
 - Nodemon (ambiente de desenvolvimento)
 
 
-
-## 📁 Estrutura de Pastas
-```
-
 ```
 
 ## 🔧 Como rodar o projeto localmente
@@ -48,10 +44,6 @@ npx nodemon src/server.js
 O servidor irá rodar em:
 ```
 http://localhost:3000
-```
-Ou acesse o deploy:
-```
-COLOCAR O LINK AQUI
 ```
 
 ## 🔗 Endpoints da API
@@ -109,7 +101,7 @@ COLOCAR O LINK AQUI
 | DELETE | /pagamentos/:id | Deleta um item |
 
 ```
-
+---
 ## 👥 Contribuidores
 - Millena Monteiro
 - Thauan Carneiro
@@ -126,7 +118,6 @@ COLOCAR O LINK AQUI
 - 🔗 [Link do Deploy da API](-)
 
 ---
-
 ⚠️ Aviso Legal
 Este pojeto é desenvolvido apenas para fins educativos. Não nos responsabilizamos por qualquer uso indevido das informações ou funcionalidades aqui apresentados.
 
