@@ -45,7 +45,7 @@ O servidor irá rodar em:
 http://localhost:3000
 ```
 
-## 🔗 Endpoints da API
+## 🔗 Endpoints da API e Rotas do Front-End
 
 ### 👤 Usuários
 | Método | Rota                                | Descrição                              |
@@ -101,24 +101,25 @@ http://localhost:3000
 
 ---
 
-## 👥 Contribuidores
-- Millena Monteiro
-- Thauan Carneiro
-- Hadiel de Paula
-- Eduardo Lopes
-- Helen Geovanna
-- Gisele Gomes
+## 👥 Squad 4 
+- [Millena Monteiro](https://github.com/Millena-Monteiro)
+- [Thauan Carneiro](https://github.com/Thauan0)
+- [Hadiel de Paula](https://github.com/hadiel7)
+- [Eduardo Lopes](https://github.com/eduardolopesPDA)
+- [Helen Geovanna](https://github.com/Helen157)
+- [Gisele Gomes](https://github.com/Jhope122)
 
 ---
 ## 🌎 Links do Projeto
 - 🔗 [GitHub da API](https://github.com/BiaVB/ReUSE-)
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
-- 🔗 [Link do Deploy da API](-)
+- 🔗 [Link do Deploy do Front-End](-)
 
 ---
 ⚠️ Aviso Legal
 Este pojeto é desenvolvido apenas para fins educativos. Não nos responsabilizamos por qualquer uso indevido das informações ou funcionalidades aqui apresentados.
 
 ---
-© 2025 ReUse+.Todos os direitos reservados.
+© 2025 Feito com carinho - T6 - Programadores do Amanhã 💜
+
