@@ -20,7 +20,7 @@ export default function ItemPage() {
   
   const fetchItens = async () => {
     try {
-      const response = await api.get("/items");
+      const response = await api.data.get("/items");
       setItens(response.data);
     } catch (err) {
       console.error("Erro ao buscar itens:", err);
@@ -53,11 +53,11 @@ export default function ItemPage() {
     try {
       if (editId) {
         // PUT /itens/:id
-        await api.put(`/items/${editId}`, form);
+        await api.data.put(`/items/${editId}`, form);
         setEditId(null);
       } else {
         // POST /itens
-        await api.post("/items", form);
+        await api.data.post("/items", form);
       }
       setForm({ nome: "", descricao: "" });
       fetchItens();
@@ -78,7 +78,7 @@ export default function ItemPage() {
  
   const handleDelete = async (id: string) => {
     try {
-      await api.delete(`/items/${id}`);
+      await api.data.delete(`/items/${id}`);
       fetchItens();
     } catch (err) {
       console.error("Erro ao deletar item:", err);
@@ -141,7 +141,7 @@ export default function ItemPage() {
          <button
             type="button"
             onClick={() => handleEdit(item)}
-            className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+            className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-600"
     >
            Editar
          </button>
