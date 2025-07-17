@@ -17,7 +17,6 @@ O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em 
 
 
 ```
-
 ## 🔧 Como rodar o projeto localmente
 ### Pré-requisitos:
 - Node.js instalado (versão 16 ou superior)
@@ -100,8 +99,8 @@ http://localhost:3000
 | PUT | /pagamentos/:id | Atualiza um pagamento |
 | DELETE | /pagamentos/:id | Deleta um item |
 
-```
 ---
+
 ## 👥 Contribuidores
 - Millena Monteiro
 - Thauan Carneiro
