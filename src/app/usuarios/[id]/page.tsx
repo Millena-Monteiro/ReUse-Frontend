@@ -28,21 +28,20 @@ const UserProfilePage: React.FC = () => {
     // 📨 Função assíncrona para buscar o usuário na API
     const fetchUser = async () => {
       try {
-        setLoading(true); // Inicia o estado de carregamento
-        setError(null); // Limpa qualquer erro anterior
+        setLoading(true);
+        setError(null);
         // 🎯 Faz uma requisição GET para o endpoint da API: /users/:id
-        // Assumindo que sua API tem um endpoint para buscar usuário por ID.
         const response = await api.get<ApiUser>(`/users/${userId}`);
-        setUser(response.data); // Atualiza o estado com os dados do usuário
+        setUser(response.data); // ✅ Agora 'response.data' é do tipo ApiUser correto
       } catch (err: any) {
-        console.error("Erro ao buscar perfil do usuário:", err); // Loga o erro no console
-        setError("Falha ao carregar o perfil do usuário. 😥"); // Define uma mensagem de erro para exibir ao usuário
+        console.error("Erro ao buscar perfil do usuário:", err);
+        setError("Falha ao carregar o perfil do usuário. 😥");
       } finally {
-        setLoading(false); // Finaliza o estado de carregamento, independente de sucesso ou falha
+        setLoading(false);
       }
     };
 
-    fetchUser(); // Chama a função para buscar o usuário
+    fetchUser();
   }, [userId]); // 🔄 O efeito é re-executado sempre que o 'userId' na URL muda
 
   // ⏳ Renderiza um indicador de carregamento enquanto os dados estão sendo buscados
@@ -76,7 +75,9 @@ const UserProfilePage: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       {/* 💳 Cartão de perfil com estilos Tailwind */}
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md border border-gray-200">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-reuse-blue">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-800">
+          {" "}
+          {/* 🎨 Cor ajustada para garantir visibilidade */}
           Perfil de {user.nome} ✨
         </h1>
         <div className="space-y-4">
@@ -101,7 +102,7 @@ const UserProfilePage: React.FC = () => {
         {/* ✏️ Botão para navegar para a página de edição do usuário */}
         <div className="mt-8 flex justify-center">
           <Link
-            href={`/usuarios/${user.id}/edit`} // 🎯 Link para a nova página de edição
+            href={`/usuarios/${user.id}/edit`}
             className="inline-block bg-reuse-green hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105"
           >
             Editar Perfil ✏️

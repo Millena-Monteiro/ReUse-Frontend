@@ -1,12 +1,14 @@
+// src/app/usuarios/[id]/edit/page.tsx
 "use client"; // 🧑‍💻 Indica que este é um Client Component
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // 🎣 Importa hooks essenciais do React
 import { useParams, useRouter } from "next/navigation"; // 🧭 Hooks para pegar parâmetros da URL e para navegação
 import { useForm } from "react-hook-form"; // 🎣 Importa o hook 'useForm'
 import { zodResolver } from "@hookform/resolvers/zod"; // 🤝 Importa o resolvedor para Zod
+
 import api from "@/axios"; // 🔗 Importa a instância configurada do Axios
 
-// 📚 Importa o schema e tipo para os dados do formulário de usuário
+// 📚 Importa o schema userSchema e os tipos UserFormData, ApiUser do seu arquivo de validação.
 import {
   userSchema,
   UserFormData,
@@ -15,6 +17,7 @@ import {
 import { z } from "zod"; // Importa Zod para criar um schema de edição
 
 // 📝 Schema para edição de usuário (senha é opcional)
+// O userEditSchema agora deriva de userSchema que já inclui tipo_usuario.
 const userEditSchema = userSchema.partial({ senha: true }); // Torna a senha opcional para edição
 type UserEditFormData = z.infer<typeof userEditSchema>;
 
@@ -54,7 +57,7 @@ const UserEditPage: React.FC = () => {
         reset({
           nome: response.data.nome,
           email: response.data.email,
-          tipo_usuario: response.data.tipo_usuario,
+          tipo_usuario: response.data.tipo_usuario, // ✅ Agora 'tipo_usuario' existe em ApiUser
           // Senha não é preenchida por segurança
         });
       } catch (err: any) {
@@ -77,7 +80,8 @@ const UserEditPage: React.FC = () => {
       const updateData = {
         nome: data.nome,
         email: data.email,
-        tipo_usuario: data.tipo_usuario,
+        tipo_usuario: data.tipo_usuario, // ✅ Agora 'tipo_usuario' existe em UserEditFormData
+        // Inclua a senha apenas se ela foi preenchida no formulário
         ...(data.senha && { senha: data.senha }),
       };
 
@@ -123,7 +127,6 @@ const UserEditPage: React.FC = () => {
         className="w-full max-w-md bg-white shadow-2xl rounded-xl p-8 border border-gray-100"
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
-          {" "}
           Editar Perfil de Usuário ✏️
         </h2>
 
