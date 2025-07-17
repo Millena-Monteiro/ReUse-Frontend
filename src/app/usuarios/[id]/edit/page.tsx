@@ -1,43 +1,41 @@
-"use client"; // 🧑‍💻 Indica que este é um Client Component
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation"; // 🧭 Hooks para pegar parâmetros da URL e para navegação
-import { useForm } from "react-hook-form"; // 🎣 Importa o hook 'useForm'
-import { zodResolver } from "@hookform/resolvers/zod"; // 🤝 Importa o resolvedor para Zod
-import api from "@/axios"; // 🔗 Importa a instância configurada do Axios
+import { useParams, useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-// 📚 Importa o schema e tipo para os dados do formulário de usuário
+// 🎯 CORREÇÃO AQUI: Importa do caminho correto e usa a propriedade 'data'
+import api from "@/lib/api"; // Caminho atualizado
+
 import {
   userSchema,
   UserFormData,
   ApiUser,
 } from "@/app/usuarios/utils/userValidation";
-import { z } from "zod"; // Importa Zod para criar um schema de edição
+import { z } from "zod";
 
-// 📝 Schema para edição de usuário (senha é opcional)
-const userEditSchema = userSchema.partial({ senha: true }); // Torna a senha opcional para edição
+const userEditSchema = userSchema.partial({ senha: true });
 type UserEditFormData = z.infer<typeof userEditSchema>;
 
 const UserEditPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter(); // 🧭 Instância do router para redirecionamento
-  const userId = params.id as string; // Pega o ID do usuário da URL
+  const router = useRouter();
+  const userId = params.id as string;
 
-  const [loadingUser, setLoadingUser] = useState(true); // ⏳ Estado para carregamento inicial do usuário
-  const [fetchingError, setFetchingError] = useState<string | null>(null); // ❌ Erro ao buscar usuário
-  const [submittingError, setSubmittingError] = useState<string | null>(null); // ❌ Erro ao submeter formulário
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [fetchingError, setFetchingError] = useState<string | null>(null);
+  const [submittingError, setSubmittingError] = useState<string | null>(null);
 
-  // 📦 Configura o React Hook Form com o resolver Zod para validação
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset, // 🔄 Função para resetar/preencher o formulário
+    reset,
   } = useForm<UserEditFormData>({
-    resolver: zodResolver(userEditSchema), // Usa o schema de edição
+    resolver: zodResolver(userEditSchema),
   });
 
-  // 🚀 Efeito para buscar os dados do usuário existente ao carregar a página
   useEffect(() => {
     if (!userId) {
       setLoadingUser(false);
@@ -48,14 +46,12 @@ const UserEditPage: React.FC = () => {
       try {
         setLoadingUser(true);
         setFetchingError(null);
-        // 🎯 Faz uma requisição GET para buscar o usuário por ID
-        const response = await api.get<ApiUser>(`/users/${userId}`);
-        // 🔄 Preenche o formulário com os dados do usuário
+        // 🎯 CORREÇÃO AQUI: Usando api.data.get
+        const response = await api.data.get<ApiUser>(`/users/${userId}`);
         reset({
           nome: response.data.nome,
           email: response.data.email,
           tipo_usuario: response.data.tipo_usuario,
-          // Senha não é preenchida por segurança
         });
       } catch (err: any) {
         console.error("Erro ao buscar dados do usuário para edição:", err);
@@ -66,14 +62,11 @@ const UserEditPage: React.FC = () => {
     };
 
     fetchUser();
-  }, [userId, reset]); // Re-executa se o userId mudar ou se 'reset' for atualizado
+  }, [userId, reset]);
 
-  // 📨 Função assíncrona para lidar com o envio do formulário de edição
   const onSubmit = async (data: UserEditFormData) => {
     try {
       setSubmittingError(null);
-      // 🎯 Faz uma requisição PUT para atualizar o usuário por ID
-      // Envia apenas os campos que podem ser atualizados
       const updateData = {
         nome: data.nome,
         email: data.email,
@@ -81,10 +74,11 @@ const UserEditPage: React.FC = () => {
         ...(data.senha && { senha: data.senha }),
       };
 
-      const response = await api.put(`/users/${userId}`, updateData);
+      // 🎯 CORREÇÃO AQUI: Usando api.data.put
+      const response = await api.data.put(`/users/${userId}`, updateData);
       console.log("Usuário atualizado com sucesso:", response.data);
       alert("Usuário atualizado com sucesso! 🎉");
-      router.push(`/usuarios/${userId}`); // 🧭 Redireciona de volta para a página de perfil
+      router.push(`/usuarios/${userId}`);
     } catch (error: any) {
       console.error(
         "Erro ao atualizar usuário:",
@@ -98,7 +92,6 @@ const UserEditPage: React.FC = () => {
     }
   };
 
-  // ⏳ Renderiza indicadores de carregamento ou erro
   if (loadingUser) {
     return (
       <div className="flex justify-center items-center min-h-screen text-lg font-medium text-gray-700">
@@ -115,7 +108,6 @@ const UserEditPage: React.FC = () => {
     );
   }
 
-  // 📝 Renderização do formulário de edição
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <form
@@ -123,11 +115,10 @@ const UserEditPage: React.FC = () => {
         className="w-full max-w-md bg-white shadow-2xl rounded-xl p-8 border border-gray-100"
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
-          {" "}
           Editar Perfil de Usuário ✏️
         </h2>
 
-        {submittingError && ( // Exibe erro de submissão
+        {submittingError && (
           <div
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6"
             role="alert"
@@ -231,7 +222,7 @@ const UserEditPage: React.FC = () => {
           </button>
           <button
             type="button"
-            onClick={() => router.push(`/usuarios/${userId}`)} // Botão para cancelar e voltar
+            onClick={() => router.push(`/usuarios/${userId}`)}
             className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 transition duration-300 transform hover:scale-105"
           >
             Cancelar ↩️
