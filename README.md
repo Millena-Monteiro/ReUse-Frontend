@@ -3,6 +3,25 @@
 ## 📜 Descrição
 O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em doar, trocar ou encontrar itens usados em bom estado.Nosso objetivo é transformar o consumo consciente em um hábito acessível, sustentável e humano.
 
+## ❓ Problematização
+
+Vivemos em uma sociedade marcada pelo consumo acelerado e pelo descarte frequente de bens ainda utilizáveis. Milhares de itens em boas condições são descartados diariamente, contribuindo para o acúmulo de resíduos sólidos e agravando os problemas ambientais. Ao mesmo tempo, muitas pessoas enfrentam dificuldades financeiras e não têm acesso a produtos essenciais que poderiam ser reutilizados.
+
+Essa realidade revela uma desconexão evidente entre o excesso de consumo de alguns e a escassez enfrentada por outros. Apesar de existirem campanhas e movimentos que incentivam o consumo consciente, ainda faltam plataformas acessíveis, seguras e intuitivas que facilitem a doação, troca ou reutilização de itens de forma colaborativa.
+
+Além disso, práticas sustentáveis muitas vezes esbarram em barreiras como:
+- Falta de engajamento comunitário;
+- Dificuldade no acesso à tecnologia;
+- Insegurança na troca de produtos entre desconhecidos;
+- Ausência de incentivo à economia circular em ambientes digitais.
+
+**Diante desse contexto, surge a seguinte questão central:**  
+> Como promover uma cultura de reutilização consciente e acessível, que conecte doadores e receptores de maneira segura, sustentável e colaborativa?
+
+O **ReUse+** nasce como resposta a essa problemática, oferecendo uma solução digital que viabiliza o reaproveitamento de itens, facilita conexões entre pessoas e impulsiona práticas sustentáveis. Por meio da tecnologia, buscamos transformar hábitos de consumo e fomentar uma rede de solidariedade e consciência ecológica.
+
+
+
 ## 🚀 Tecnologias usadas
 - Next.js
 - TailwindCss
