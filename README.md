@@ -1,9 +1,13 @@
-# ♻ ReUse+
+# ♻️ ReUse+
 
 ## 📜 Descrição
-O *ReUse+* é uma plataforma que promove a sustentabilidade e a economia circular, conectando pessoas que desejam doar, trocar ou adquirir itens usados em bom estado. O projeto visa reduzir o consumo excessivo e o descarte inadequado, incentivando a reutilização.
+O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em doar, trocar ou encontrar itens usados em bom estado.Nosso objetivo é transformar o consumo consciente em um hábito acessível, sustentável e humano.
 
 ## 🚀 Tecnologias usadas
+- Next.js
+- TailwindCss
+- React
+- TypeScript
 - Node.js
 - Express
 - Sequelize (com SQLite)
@@ -11,25 +15,12 @@ O *ReUse+* é uma plataforma que promove a sustentabilidade e a economia circula
 - Middleware para validações
 - Nodemon (ambiente de desenvolvimento)
 
-## 🔥 Funcionalidades
-- ✅ Cadastro e login de usuários
-- ✅ Publicação de itens (com título, descrição, categoria, status e usuário)
-- ✅ Busca de itens por ID e listagem de todos os itens
-- ✅ Sistema de cupons como forma de gamificação (com validade, valor e status)
-- ✅ Avaliação dos itens e usuários
-- ✅ Histórico de trocas/doações
-- ✅ Pagamentos registrados
-- ✅ Gerenciamento completo de usuários
-- ✅ API REST com operações CRUD para todos os recursos
+
 
 ## 📁 Estrutura de Pastas
+```
 
-src/
-├── controllers/        # Lógica das funcionalidades
-├── models/             # Modelagem dos dados e banco
-├── routes/             # Definição das rotas da API
-└── server.js           # Arquivo principal que sobe o servidor
-
+```
 
 ## 🔧 Como rodar o projeto localmente
 ### Pré-requisitos:
@@ -37,34 +28,31 @@ src/
 - Git instalado
 
 ### Passo a passo:
-bash
+```bash
 # Clone o repositório
-git clone https://github.com/BiaVB/ReUSE-.git
+git clone https://github.com/Millena-Monteiro/ReUse-Frontend.git
 
 # Acesse a pasta do projeto
-cd ReUSE-
+cd ReUse-Frontend
 
 # Instale as dependências
 npm install
-
-# Rode as migrações e configure o banco se necessário
-# (dependendo de como o sequelize está configurado)
 
 # Inicie o servidor
 npm run dev 
 
 # Ou, se estiver usando nodemon para desenvolvimento
 npx nodemon src/server.js
-
+```
 
 O servidor irá rodar em:
-
+```
 http://localhost:3000
-
+```
 Ou acesse o deploy:
-
-https://reuse-lwju.onrender.com
-
+```
+COLOCAR O LINK AQUI
+```
 
 ## 🔗 Endpoints da API
 
@@ -86,7 +74,7 @@ https://reuse-lwju.onrender.com
 | PUT | /avaliacoes/:id | Atualiza uma avaliação |
 | DELETE | /avaliacoes/:id | Deleta uma avaliação |
 
-### 🎟 Cupons
+### 🎟️ Cupons
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | GET | /cupons | Lista todos os cupons |
@@ -138,3 +126,11 @@ https://reuse-lwju.onrender.com
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
 - 🔗 [Link do Deploy da API](-)
+
+---
+
+⚠️ Aviso Legal
+Este pojeto é desenvolvido apenas para fins educativos. Não nos responsabilizamos por qualquer uso indevido das informações ou funcionalidades aqui apresentados.
+
+---
+© 2025 ReUse+.Todos os direitos reservados.

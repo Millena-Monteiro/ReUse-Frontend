@@ -3,6 +3,9 @@
 
 import React, { useState, useEffect } from "react";
 import api from "../../axios";
+import Botoes from "../../components/ui/botoesnav";
+
+<Botoes/>
 
 type Cupom = {
   id: string;
