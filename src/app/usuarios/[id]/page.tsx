@@ -1,4 +1,3 @@
-// src/app/usuarios/[id]/page.tsx
 "use client"; // 🧑‍💻 Indica que este é um Client Component
 
 import React, { useState, useEffect } from "react"; // 🎣 Importa hooks essenciais do React
@@ -31,7 +30,6 @@ const UserProfilePage: React.FC = () => {
         setLoading(true); // Inicia o estado de carregamento
         setError(null); // Limpa qualquer erro anterior
         // 🎯 Faz uma requisição GET para o endpoint da API: /users/:id
-        // Assumindo que sua API tem um endpoint para buscar usuário por ID.
         const response = await api.get<ApiUser>(`/users/${userId}`);
         setUser(response.data); // Atualiza o estado com os dados do usuário
       } catch (err: any) {

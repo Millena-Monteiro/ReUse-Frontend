@@ -1,4 +1,3 @@
-// src/components/specific/userRegistrationForm.tsx
 "use client"; // 🧑‍💻 Indica que este é um Client Component, pois usa hooks do React e do Next.js
 
 import React from "react";
