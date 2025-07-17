@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod"; // 🤝 Importa o resolve
 import { userSchema, UserFormData } from "@/app/usuarios/utils/userValidation";
 
 // 🔗 Importa a instância configurada do Axios para requisições à API
-// Assumindo que seu arquivo api.ts está em 'src/components/ui/api.ts'
 import api from "@/axios";
 
 const UserRegistrationForm: React.FC = () => {
@@ -27,7 +26,6 @@ const UserRegistrationForm: React.FC = () => {
   const onSubmit = async (data: UserFormData) => {
     try {
       // 🎯 Faz uma requisição POST para o endpoint '/users' da API com os dados do formulário
-      // O endpoint é '/users' conforme a rota definida no seu backend (app.use('/users', userRoutes);)
       const response = await api.post("/users", data);
       console.log("Usuário cadastrado com sucesso:", response.data); // 🎉 Log de sucesso
       alert("Usuário cadastrado com sucesso! 🎉"); // 🥳 Alerta de sucesso para o usuário
@@ -122,7 +120,7 @@ const UserRegistrationForm: React.FC = () => {
             </p>
           )}
         </div>
-        {/* Adicione o campo tipo_usuario aqui se for necessário no cadastro */}
+        {}
         <div className="mb-6">
           <label
             htmlFor="tipo_usuario"
