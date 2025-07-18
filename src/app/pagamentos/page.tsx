@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import api from "@/lib/api";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 interface UserInfoForPagamento {
   nome: string;
