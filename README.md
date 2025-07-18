@@ -3,6 +3,25 @@
 ## 📜 Descrição
 O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em doar, trocar ou encontrar itens usados em bom estado.Nosso objetivo é transformar o consumo consciente em um hábito acessível, sustentável e humano.
 
+## ❓ Problematização
+
+Vivemos em uma sociedade marcada pelo consumo acelerado e pelo descarte frequente de bens ainda utilizáveis. Milhares de itens em boas condições são descartados diariamente, contribuindo para o acúmulo de resíduos sólidos e agravando os problemas ambientais. Ao mesmo tempo, muitas pessoas enfrentam dificuldades financeiras e não têm acesso a produtos essenciais que poderiam ser reutilizados.
+
+Essa realidade revela uma desconexão evidente entre o excesso de consumo de alguns e a escassez enfrentada por outros. Apesar de existirem campanhas e movimentos que incentivam o consumo consciente, ainda faltam plataformas acessíveis, seguras e intuitivas que facilitem a doação, troca ou reutilização de itens de forma colaborativa.
+
+Além disso, práticas sustentáveis muitas vezes esbarram em barreiras como:
+- Falta de engajamento comunitário;
+- Dificuldade no acesso à tecnologia;
+- Insegurança na troca de produtos entre desconhecidos;
+- Ausência de incentivo à economia circular em ambientes digitais.
+
+**Diante desse contexto, surge a seguinte questão central:**  
+> Como promover uma cultura de reutilização consciente e acessível, que conecte doadores e receptores de maneira segura, sustentável e colaborativa?
+
+O **ReUse+** nasce como resposta a essa problemática, oferecendo uma solução digital que viabiliza o reaproveitamento de itens, facilita conexões entre pessoas e impulsiona práticas sustentáveis. Por meio da tecnologia, buscamos transformar hábitos de consumo e fomentar uma rede de solidariedade e consciência ecológica.
+
+
+
 ## 🚀 Tecnologias usadas
 - Next.js
 - TailwindCss
@@ -45,7 +64,7 @@ O servidor irá rodar em:
 http://localhost:3000
 ```
 
-## 🔗 Endpoints da API
+## 🔗 Endpoints da API e Rotas do Front-End
 
 ### 👤 Usuários
 | Método | Rota                                | Descrição                              |
@@ -101,24 +120,25 @@ http://localhost:3000
 
 ---
 
-## 👥 Contribuidores
-- Millena Monteiro
-- Thauan Carneiro
-- Hadiel de Paula
-- Eduardo Lopes
-- Helen Geovanna
-- Gisele Gomes
+## 👥 Squad 4 
+- [Millena Monteiro](https://github.com/Millena-Monteiro)
+- [Thauan Carneiro](https://github.com/Thauan0)
+- [Hadiel de Paula](https://github.com/hadiel7)
+- [Eduardo Lopes](https://github.com/eduardolopesPDA)
+- [Helen Geovanna](https://github.com/Helen157)
+- [Gisele Gomes](https://github.com/Jhope122)
 
 ---
 ## 🌎 Links do Projeto
 - 🔗 [GitHub da API](https://github.com/BiaVB/ReUSE-)
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
-- 🔗 [Link do Deploy da API](-)
+- 🔗 [Link do Deploy do Front-End](-)
 
 ---
 ⚠️ Aviso Legal
 Este pojeto é desenvolvido apenas para fins educativos. Não nos responsabilizamos por qualquer uso indevido das informações ou funcionalidades aqui apresentados.
 
 ---
-© 2025 ReUse+.Todos os direitos reservados.
+© 2025 Feito com carinho - T6 - Programadores do Amanhã 💜
+
