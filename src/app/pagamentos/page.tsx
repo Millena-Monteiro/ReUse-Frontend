@@ -22,7 +22,6 @@ type Pagamento = {
 };
 
 export default function PagamentoPage() {
-  // CORREÇÃO: Removido o parêntese extra na inicialização do useState
   const [pagamentos, setPagamentos] = useState<Pagamento[]>([]);
   const [form, setForm] = useState({
     valor: "",
@@ -95,7 +94,7 @@ export default function PagamentoPage() {
           valor: Number(form.valor),
           metodo: form.metodo,
           status: form.status || "pendente",
-          userId: form.userId || "1",
+          userId: form.userId,
         });
       }
       setForm({ valor: "", metodo: "", status: "", userId: "" });
@@ -298,23 +297,23 @@ export default function PagamentoPage() {
             key={pagamento.id}
             className="bg-blue-100 p-4 rounded shadow hover:bg-blue-200 transition cursor-default text-gray-900 dark:bg-gray-800 dark:text-white"
           >
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>Valor:</strong> R$ {pagamento.valor}
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>Método:</strong> {pagamento.metodo}
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>Status:</strong> {pagamento.status}
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>Usuário:</strong> {pagamento.user?.nome || "Desconhecido"}{" "}
               ({pagamento.user?.email || "N/A"})
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>ID do Usuário:</strong> {pagamento.userId}
             </p>
-            <p>
+            <p className="text-gray-900 dark:text-white">
               <strong>Data:</strong>{" "}
               {new Date(pagamento.createdAt).toLocaleDateString()}
             </p>
