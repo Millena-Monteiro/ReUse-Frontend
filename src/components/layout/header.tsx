@@ -14,12 +14,18 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex gap-6 font-medium">
-          <Link href="/cupons" className="hover:text-green-200">Cupons</Link>
-          <Link href="/avaliacoes" className="hover:text-green-200">Avaliações</Link>
-          <Link href="/historicos" className="hover:text-green-200">Históricos</Link>
-          <Link href="/itens" className="hover:text-green-200">Itens</Link>
-          <Link href="/pagamentos" className="hover:text-green-200">Pagamentos</Link>
-          <Link href="/usuarios" className="hover:text-green-200">Usuários</Link>
+          <Link href="/cupons" className="hover:text-green-200">
+            Cupons
+          </Link>
+          <Link href="/itens" className="hover:text-green-200">
+            Itens
+          </Link>
+          <Link href="/pagamentos" className="hover:text-green-200">
+            Pagamentos
+          </Link>
+          <Link href="/usuarios" className="hover:text-green-200">
+            Usuários
+          </Link>
         </nav>
 
         <button
@@ -27,7 +33,12 @@ export default function Header() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Abrir menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="white"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -40,12 +51,18 @@ export default function Header() {
 
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2 bg-green-600">
-          <Link href="/cupom" className="block hover:text-green-200">Cupons</Link>
-          <Link href="/avaliacoes" className="block hover:text-green-200">Avaliações</Link>
-          <Link href="/historicos" className="block hover:text-green-200">Históricos</Link>
-          <Link href="/itens" className="block hover:text-green-200">Itens</Link>
-          <Link href="/pagamentos" className="block hover:text-green-200">Pagamentos</Link>
-          <Link href="/usuarios" className="block hover:text-green-200">Usuários</Link>
+          <Link href="/cupom" className="block hover:text-green-200">
+            Cupons
+          </Link>
+          <Link href="/itens" className="block hover:text-green-200">
+            Itens
+          </Link>
+          <Link href="/pagamentos" className="block hover:text-green-200">
+            Pagamentos
+          </Link>
+          <Link href="/usuarios" className="block hover:text-green-200">
+            Usuários
+          </Link>
         </div>
       )}
     </header>
