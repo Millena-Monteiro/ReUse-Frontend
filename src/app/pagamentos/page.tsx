@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import api from "../../lib/api";
+import api from "@/lib/api";
 
 type Pagamento = {
   id: string;
@@ -19,7 +19,7 @@ export default function PagamentoPage() {
   // Fetch all payments (GET)
   const fetchPagamentos = async () => {
     try {
-      const response = await api.get("/pagamentos");
+      const response = await api.data.get("/pagamentos");
       setPagamentos(response.data);
     } catch (err) {
       console.error("Erro ao buscar pagamentos:", err);
@@ -48,14 +48,14 @@ export default function PagamentoPage() {
 
     try {
       if (editId) {
-        await api.put(`/pagamentos/${editId}`, {
+        await api.data.put(`/pagamentos/${editId}`, {
           descricao: form.descricao,
           valor: Number(form.valor),
           data: form.data,
         });
         setEditId(null);
       } else {
-        await api.post("/pagamentos", {
+        await api.data.post("/pagamentos", {
           descricao: form.descricao,
           valor: Number(form.valor),
           data: form.data,
@@ -83,7 +83,7 @@ export default function PagamentoPage() {
   // Delete payment
   const handleDelete = async (id: string) => {
     try {
-      await api.delete(`/pagamentos/${id}`);
+      await api.data.delete(`/pagamentos/${id}`);
       fetchPagamentos();
     } catch (err) {
       console.error("Erro ao deletar pagamento:", err);
