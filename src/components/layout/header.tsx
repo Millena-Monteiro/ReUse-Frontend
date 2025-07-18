@@ -26,6 +26,12 @@ export default function Header() {
           <Link href="/usuarios" className="hover:text-green-200">
             Usuários
           </Link>
+           <Link href="/historico" className="hover:text-green-200">
+            Histórico
+          </Link>
+           <Link href="/avaliacao" className="hover:text-green-200">
+            Avaliação
+          </Link>
         </nav>
 
         <button
