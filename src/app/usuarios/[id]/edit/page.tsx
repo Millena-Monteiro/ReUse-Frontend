@@ -1,10 +1,10 @@
-"use client";
+"use client"; // 🧑‍💻 Indica que este é um Client Component
 
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation"; // 🧭 Hooks para pegar parâmetros da URL e para navegação
 import { useForm } from "react-hook-form"; // 🎣 Importa o hook 'useForm'
 import { zodResolver } from "@hookform/resolvers/zod"; // 🤝 Importa o resolvedor para Zod
-import api from "@/lib/api"; // 🔗 Importa a instância configurada do Axios (Caminho CORRETO para api.ts)
+import api from "@/lib/api"; // 🔗 Importa a instância configurada do Axios
 import { userSchema, ApiUser } from "@/app/usuarios/utils/userValidation"; // 📚 Importa o schema e tipo para os dados do formulário de usuário
 import { z } from "zod"; // Importa Zod para criar um schema de edição
 import axios, { AxiosError } from "axios"; // 📦 Importa Axios e AxiosError para tipagem segura
@@ -16,7 +16,7 @@ type UserEditFormData = z.infer<typeof userEditSchema>;
 const UserEditPage: React.FC = () => {
   const params = useParams();
   const router = useRouter(); // 🧭 Instância do router para redirecionamento
-  const userId = params.id as string;
+  const userId = params.id as string; // Pega o ID do usuário da URL
 
   const [loadingUser, setLoadingUser] = useState(true); // ⏳ Estado para carregamento inicial do usuário
   const [fetchingError, setFetchingError] = useState<string | null>(null); // ❌ Erro ao buscar usuário
@@ -53,7 +53,7 @@ const UserEditPage: React.FC = () => {
           // Senha não é preenchida por segurança
         });
       } catch (err: unknown) {
-        // 🎯 CORRETO: Usando 'unknown' para tipagem segura
+        // 🎯 CORREÇÃO: Usando 'unknown' em vez de 'any'
         if (axios.isAxiosError(err)) {
           console.error(
             "Erro ao buscar dados do usuário para edição:",
@@ -94,6 +94,7 @@ const UserEditPage: React.FC = () => {
         nome: data.nome,
         email: data.email,
         tipo_usuario: data.tipo_usuario,
+        // Inclua a senha apenas se ela foi preenchida no formulário
         ...(data.senha && { senha: data.senha }),
       };
 
@@ -102,7 +103,7 @@ const UserEditPage: React.FC = () => {
       alert("Usuário atualizado com sucesso! 🎉");
       router.push(`/usuarios/${userId}`); // 🧭 Redireciona de volta para a página de perfil
     } catch (err: unknown) {
-      // 🎯 CORRETO: Usando 'unknown' para tipagem segura
+      // 🎯 CORREÇÃO: Usando 'unknown' em vez de 'any'
       if (axios.isAxiosError(err)) {
         console.error(
           "Erro ao atualizar usuário:",
@@ -160,7 +161,7 @@ const UserEditPage: React.FC = () => {
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6"
             role="alert"
           >
-            <strong className="font-bold">Erro!</strong>
+            <strong className="font-bold">Atenção!</strong>
             <span className="block sm:inline"> {submittingError}</span>
           </div>
         )}

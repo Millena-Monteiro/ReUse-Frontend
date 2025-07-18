@@ -1,37 +1,46 @@
-// src/contexts/SessionContext.tsx
-'use client'; 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+"use client";
 
-interface User {
-  id: number;
-  nome: string;
-  email: string;
-}
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface SessionContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  isLoading: boolean;
+  user: any; // ⚠️ Considere tipar 'user' de forma mais específica no futuro
+  login: (userData: any) => void; // ⚠️ Considere tipar 'userData' de forma mais específica no futuro
+  logout: () => void;
+  isAuthenticated: boolean;
+  // isLoading: boolean; // 🗑️ Removido se não for usado
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
-export function SessionProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true); 
+export const SessionProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [user, setUser] = useState<any>(null); // ⚠️ Considere tipar 'user' de forma mais específica
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true); // 🗑️ Removido se não for usado
 
- 
+  const login = (userData: any) => {
+    // ⚠️ Considere tipar 'userData' de forma mais específica
+    setUser(userData);
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
   return (
-    <SessionContext.Provider value={{ user, setUser, isLoading }}>
+    <SessionContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </SessionContext.Provider>
   );
-}
+};
 
-export function useSession() {
+export const useSession = () => {
   const context = useContext(SessionContext);
   if (context === undefined) {
-    throw new Error('useSession must be used within a SessionProvider');
+    throw new Error("useSession must be used within a SessionProvider");
   }
   return context;
-}
+};
