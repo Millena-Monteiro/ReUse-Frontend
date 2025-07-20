@@ -1,6 +1,7 @@
 # ♻️ ReUse+
 
 ## 📜 Descrição
+
 O **ReUse+** é uma plataforma colaborativa que conecta pessoas interessadas em doar, trocar ou encontrar itens usados em bom estado.Nosso objetivo é transformar o consumo consciente em um hábito acessível, sustentável e humano.
 
 ## ❓ Problematização
@@ -10,19 +11,20 @@ Vivemos em uma sociedade marcada pelo consumo acelerado e pelo descarte frequent
 Essa realidade revela uma desconexão evidente entre o excesso de consumo de alguns e a escassez enfrentada por outros. Apesar de existirem campanhas e movimentos que incentivam o consumo consciente, ainda faltam plataformas acessíveis, seguras e intuitivas que facilitem a doação, troca ou reutilização de itens de forma colaborativa.
 
 Além disso, práticas sustentáveis muitas vezes esbarram em barreiras como:
+
 - Falta de engajamento comunitário;
 - Dificuldade no acesso à tecnologia;
 - Insegurança na troca de produtos entre desconhecidos;
 - Ausência de incentivo à economia circular em ambientes digitais.
 
-**Diante desse contexto, surge a seguinte questão central:**  
+**Diante desse contexto, surge a seguinte questão central:**
+
 > Como promover uma cultura de reutilização consciente e acessível, que conecte doadores e receptores de maneira segura, sustentável e colaborativa?
 
 O **ReUse+** nasce como resposta a essa problemática, oferecendo uma solução digital que viabiliza o reaproveitamento de itens, facilita conexões entre pessoas e impulsiona práticas sustentáveis. Por meio da tecnologia, buscamos transformar hábitos de consumo e fomentar uma rede de solidariedade e consciência ecológica.
 
-
-
 ## 🚀 Tecnologias usadas
+
 - Next.js
 - TailwindCss
 - React
@@ -34,8 +36,7 @@ O **ReUse+** nasce como resposta a essa problemática, oferecendo uma solução 
 - Middleware para validações
 - Nodemon (ambiente de desenvolvimento)
 
-
-```
+````
 ## 🔧 Como rodar o projeto localmente
 ### Pré-requisitos:
 - Node.js instalado (versão 16 ou superior)
@@ -53,13 +54,14 @@ cd ReUse-Frontend
 npm install
 
 # Inicie o servidor
-npm run dev 
+npm run dev
 
 # Ou, se estiver usando nodemon para desenvolvimento
 npx nodemon src/server.js
-```
+````
 
 O servidor irá rodar em:
+
 ```
 http://localhost:3000
 ```
@@ -67,60 +69,67 @@ http://localhost:3000
 ## 🔗 Endpoints da API e Rotas do Front-End
 
 ### 👤 Usuários
-| Método | Rota                                | Descrição                              |
-|--------|--------------------------------------|-----------------------------------------|
-| GET    | /usuarios                            | Lista todos os usuários                 |
-| GET    | /usuarios/:id                        | Busca um usuário por ID com todas informações do mesmo                |
-| POST   | /usuarios                             | Cria um novo usuário                    |
-| PUT    | /usuarios/:id                         | Atualiza um usuário                     |
-| DELETE | /usuarios/:id                         | Deleta um usuário                       |
+
+| Método | Rota          | Descrição                                              |
+| ------ | ------------- | ------------------------------------------------------ |
+| GET    | /usuarios     | Lista todos os usuários                                |
+| GET    | /usuarios/:id | Busca um usuário por ID com todas informações do mesmo |
+| POST   | /usuarios     | Cria um novo usuário                                   |
+| PUT    | /usuarios/:id | Atualiza um usuário                                    |
+| DELETE | /usuarios/:id | Deleta um usuário                                      |
 
 ### 📝 Avaliações
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | /avaliacoes | Lista todas as avaliações |
-| GET | /avaliacoes/:id | Busca avaliação por ID |
-| POST | /avaliacoes | Cria uma nova avaliação |
-| PUT | /avaliacoes/:id | Atualiza uma avaliação |
-| DELETE | /avaliacoes/:id | Deleta uma avaliação |
+
+| Método | Rota            | Descrição                 |
+| ------ | --------------- | ------------------------- |
+| GET    | /avaliacoes     | Lista todas as avaliações |
+| GET    | /avaliacoes/:id | Busca avaliação por ID    |
+| POST   | /avaliacoes     | Cria uma nova avaliação   |
+| PUT    | /avaliacoes/:id | Atualiza uma avaliação    |
+| DELETE | /avaliacoes/:id | Deleta uma avaliação      |
 
 ### 🎟️ Cupons
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | /cupons | Lista todos os cupons |
-| GET | /cupons/:id | Busca cupom por ID |
-| POST | /cupons | Cria um novo cupom |
-| PUT | /cupons/:id | Atualiza um cupom |
-| DELETE | /cupons/:id | Deleta um cupom |
+
+| Método | Rota        | Descrição             |
+| ------ | ----------- | --------------------- |
+| GET    | /cupons     | Lista todos os cupons |
+| GET    | /cupons/:id | Busca cupom por ID    |
+| POST   | /cupons     | Cria um novo cupom    |
+| PUT    | /cupons/:id | Atualiza um cupom     |
+| DELETE | /cupons/:id | Deleta um cupom       |
 
 ### 📦 Itens
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | /itens | Lista todos os itens |
-| GET | /itens/:id | Busca item por ID |
-| POST | /itens | Cria um novo item |
-| PUT | /itens/:id | Atualiza um item |
-| DELETE | /itens/:id | Deleta um item |
+
+| Método | Rota       | Descrição            |
+| ------ | ---------- | -------------------- |
+| GET    | /itens     | Lista todos os itens |
+| GET    | /itens/:id | Busca item por ID    |
+| POST   | /itens     | Cria um novo item    |
+| PUT    | /itens/:id | Atualiza um item     |
+| DELETE | /itens/:id | Deleta um item       |
 
 ### 📜 Históricos
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | api/historicos | Lista todos os históricos |
-| POST | api/historicos | Cria um novo histórico |
-| PUT | api/historicos/:id | Atualiza um histórico |
-| DELETE | api/historicos/:id | Deleta um histórico |
 
-###  💲 Pagamentos
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | /pagamentos | Lista todos os pagamentos |
-| POST | /pagamentos | Cria um novo pagamento |
-| PUT | /pagamentos/:id | Atualiza um pagamento |
-| DELETE | /pagamentos/:id | Deleta um item |
+| Método | Rota               | Descrição                 |
+| ------ | ------------------ | ------------------------- |
+| GET    | api/historicos     | Lista todos os históricos |
+| POST   | api/historicos     | Cria um novo histórico    |
+| PUT    | api/historicos/:id | Atualiza um histórico     |
+| DELETE | api/historicos/:id | Deleta um histórico       |
+
+### 💲 Pagamentos
+
+| Método | Rota            | Descrição                 |
+| ------ | --------------- | ------------------------- |
+| GET    | /pagamentos     | Lista todos os pagamentos |
+| POST   | /pagamentos     | Cria um novo pagamento    |
+| PUT    | /pagamentos/:id | Atualiza um pagamento     |
+| DELETE | /pagamentos/:id | Deleta um item            |
 
 ---
 
-## 👥 Squad 4 
+## 👥 Squad 4
+
 - [Millena Monteiro](https://github.com/Millena-Monteiro)
 - [Thauan Carneiro](https://github.com/Thauan0)
 - [Hadiel de Paula](https://github.com/hadiel7)
@@ -129,16 +138,19 @@ http://localhost:3000
 - [Gisele Gomes](https://github.com/Jhope122)
 
 ---
+
 ## 🌎 Links do Projeto
+
 - 🔗 [GitHub da API](https://github.com/BiaVB/ReUSE-)
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
-- 🔗 [Link do Deploy do Front-End](-)
+- 🔗 [Link do Deploy do Front-End](https://re-use-frontend-4cya-ko37ptztw-millena-monteiros-projects.vercel.app/)
 
 ---
+
 ⚠️ Aviso Legal
 Este pojeto é desenvolvido apenas para fins educativos. Não nos responsabilizamos por qualquer uso indevido das informações ou funcionalidades aqui apresentados.
 
 ---
-© 2025 Feito com carinho - T6 - Programadores do Amanhã 💜
 
+© 2025 Feito com carinho - T6 - Programadores do Amanhã 💜
