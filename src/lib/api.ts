@@ -5,7 +5,7 @@ import axios from "axios"; // 📦 Importa a biblioteca Axios.
 // 🔗 Instância para operações de DADOS (usuários, itens, etc.)
 const dataApi = axios.create({
   baseURL: "https://reuse-lwju.onrender.com", // 🎯 URL BASE DA API DE BACKEND.
-  timeout: 10000, // ⏱️ Tempo máximo de espera para uma resposta da API (10 segundos).
+  timeout: 30000, // ⏱️ Tempo máximo de espera para uma resposta da API (30 segundos).
   headers: {
     "Content-Type": "application/json", // 📝 Define o tipo de conteúdo padrão para JSON.
   },
@@ -13,11 +13,12 @@ const dataApi = axios.create({
 
 // 🔗 Instância para operações de AUTENTICAÇÃO
 const authApi = axios.create({
-  baseURL: "https://reuse-lwju.onrender.com",
-  timeout: 10000,
+  baseURL:
+    process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+    "https://reuse-lwju.onrender.com",
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json",
-    // Exemplo: 'Authorization': 'Bearer YOUR_AUTH_TOKEN' (seria adicionado dinamicamente)
   },
 });
 
@@ -27,4 +28,4 @@ const apiInstances = {
   auth: authApi,
 };
 
-export default apiInstances; // 📤 Exporta a instância configurada do Axios para ser usada em outras partes do aplicativo.
+export default apiInstances;

@@ -1,14 +1,15 @@
-// src/app/layout.tsx
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import Providers from "./providers/Providers";
 
-import './globals.css';
-import type { Metadata } from 'next';
-import { Providers } from '../app/providers/Providers'; // <-- CORRIGIDO AQUI
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ReUse',
-  description: 'Moda Sustentável e Conexões',
+  title: "ReUse",
+  description: "Moda Sustentável e Conexões",
 };
 
 export default function RootLayout({
@@ -18,12 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-gradient-to-br from-white to-purple-100 text-purple-900 font-sans antialiased overflow-x-hidden flex flex-col">
-        <Providers>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </Providers>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
+        <Header />
+
+        <main className="flex-grow">
+          <Providers> {children} </Providers>
+        </main>
+
+        <Footer />
       </body>
     </html>
   );
