@@ -9,7 +9,7 @@ import axios, { AxiosError } from "axios"; // 📦 Importa Axios e AxiosError pa
 import { userSchema, UserFormData } from "@/app/usuarios/utils/userValidation";
 
 // 🔗 Importa a instância configurada do Axios para requisições à API.
-import api from "@/lib/api"; // 🎯 CORRIGIDO O CAMINHO
+import api from "@/lib/api";
 
 const UserRegistrationForm: React.FC = () => {
   // 📦 Configura o React Hook Form com o resolver Zod para validação.

@@ -1,46 +1,51 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useContext, ReactNode, useState } from "react";
 
-interface SessionContextType {
-  user: any; // ⚠️ Considere tipar 'user' de forma mais específica no futuro
-  login: (userData: any) => void; // ⚠️ Considere tipar 'userData' de forma mais específica no futuro
-  logout: () => void;
-  isAuthenticated: boolean;
-  // isLoading: boolean; // 🗑️ Removido se não for usado
+// 💡 Exemplo de interface para um contexto de sessão customizado
+interface CustomSessionContextType {
+  someCustomData: string;
+  setSomeCustomData: (data: string) => void;
+  // Pode adicionar aqui quaisquer outros dados ou funções que queira compartilhar
 }
 
-const SessionContext = createContext<SessionContextType | undefined>(undefined);
+// Cria o contexto com um valor padrão
+const SessionContext = createContext<CustomSessionContextType | undefined>(
+  undefined
+);
 
-export const SessionProvider: React.FC<{ children: ReactNode }> = ({
+interface SessionProviderProps {
+  children: ReactNode;
+}
+
+// Componente Provedor para o contexto
+export const SessionContextProvider: React.FC<SessionProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<any>(null); // ⚠️ Considere tipar 'user' de forma mais específica
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [isLoading, setIsLoading] = useState(true); // 🗑️ Removido se não for usado
+  const [someCustomData, setSomeCustomData] = useState("Dados Iniciais");
 
-  const login = (userData: any) => {
-    // ⚠️ Considere tipar 'userData' de forma mais específica
-    setUser(userData);
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
+  const value = {
+    someCustomData,
+    setSomeCustomData,
   };
 
   return (
-    <SessionContext.Provider value={{ user, login, logout, isAuthenticated }}>
-      {children}
-    </SessionContext.Provider>
+    <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
   );
 };
 
-export const useSession = () => {
+// Hook customizado para usar o contexto
+export const useSessionContext = () => {
   const context = useContext(SessionContext);
   if (context === undefined) {
-    throw new Error("useSession must be used within a SessionProvider");
+    throw new Error(
+      "useSessionContext must be used within a SessionContextProvider"
+    );
   }
   return context;
 };
+
+// Se este arquivo foi criado para envolver o NextAuth.js,
+// a abordagem preferencial é usar src/app/providers/session-provider.tsx
+// e importar useSession diretamente de 'next-auth/react'.
+// Este arquivo é para *outros* dados de sessão que não sejam de autenticação.
