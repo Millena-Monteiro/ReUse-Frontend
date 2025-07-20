@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import api from "@/lib/api";
 import { ApiUser } from "@/app/usuarios/utils/userValidation";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const UserProfilePage: React.FC = () => {
   // 🧭 Extrai o 'id' do usuário da URL, que vem da estrutura de rota '[id]'

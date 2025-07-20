@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import api from "@/lib/api";
 import { userSchema, ApiUser } from "@/app/usuarios/utils/userValidation"; // 📚 Importa o schema de validação e o tipo 'ApiUser'
 import { z } from "zod";
-import axios, { AxiosError } from "axios"; // 📦 Importa Axios e AxiosError para tipagem segura
+import axios from "axios";
 
 // 📝 Schema para edição de usuário (senha é opcional para atualização)
 const userEditSchema = userSchema.partial({ senha: true });

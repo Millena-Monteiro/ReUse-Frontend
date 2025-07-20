@@ -1,9 +1,9 @@
 "use client"; // 🧑‍💻 Indica que este é um Client Component, pois usa hooks do React e do Next.js
 
 import React from "react";
-import { useForm } from "react-hook-form"; // 🎣 Importa o hook 'useForm' do React Hook Form
-import { zodResolver } from "@hookform/resolvers/zod"; // 🤝 Importa o resolvedor para integrar Zod com React Hook Form
-import axios, { AxiosError } from "axios"; // 📦 Importa Axios e AxiosError para tipagem segura
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 // 📚 Importa o schema e tipo para os dados do formulário de usuário do seu arquivo de validação.
 import { userSchema, UserFormData } from "@/app/usuarios/utils/userValidation";
@@ -16,8 +16,8 @@ const UserRegistrationForm: React.FC = () => {
   const {
     register, // ✍️ Função para registrar os campos do input HTML/JSX.
     handleSubmit, // 🚀 Função que lida com o envio do formulário, executando a validação antes.
-    formState: { errors, isSubmitting }, // 📊 Objeto que contém o estado do formulário (erros de validação, estado de envio).
-    reset, // 🔄 Função para resetar o formulário para seus valores iniciais ou para um estado vazio.
+    formState: { errors, isSubmitting },
+    reset,
   } = useForm<UserFormData>({
     resolver: zodResolver(userSchema), // Conecta o Zod para validação dos inputs do formulário.
   });
@@ -58,7 +58,7 @@ const UserRegistrationForm: React.FC = () => {
       {" "}
       {/* 🖼️ Envolve o formulário para centralizar e dar um fundo */}
       <form
-        onSubmit={handleSubmit(onSubmit)} // Conecta a função de envio do formulário.
+        onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-md bg-white shadow-2xl rounded-xl p-8 border border-gray-100"
       >
         {" "}
@@ -141,7 +141,7 @@ const UserRegistrationForm: React.FC = () => {
           </label>
           <select
             id="tipo_usuario"
-            {...register("tipo_usuario")} // Registra o campo select com o nome "tipo_usuario"
+            {...register("tipo_usuario")}
             className="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-reuse-blue focus:border-transparent transition duration-200"
           >
             <option value="">Selecione um tipo</option>{" "}

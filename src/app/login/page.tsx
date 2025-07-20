@@ -4,9 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
+import axios from "axios";
 
 const loginSchema = z.object({
   email: z.email("E-mail inválido. 📧"),

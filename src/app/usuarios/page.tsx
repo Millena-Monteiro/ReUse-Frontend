@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import api from "@/lib/api";
 import { ApiUser } from "@/app/usuarios/utils/userValidation";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const UsuariosPage: React.FC = () => {
   // 📊 Estados para gerenciar os dados dos usuários, carregamento e erros

@@ -24,7 +24,7 @@ export default function CuponsPage() {
       setError(null);
       const response = await api.data.get<Cupom[]>("/cupons");
       setCupons(response.data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(
         "Ocorreu um erro ao carregar os cupons. Por favor, tente novamente."
       );
@@ -79,7 +79,7 @@ export default function CuponsPage() {
         </p>
         <p className="text-sm text-gray-500 mt-2">
           Isso pode levar alguns segundos, especialmente se o servidor estiver
-          "dormindo".
+          &quot;dormindo&quot;.
         </p>
       </div>
     );
@@ -119,8 +119,8 @@ export default function CuponsPage() {
             Nenhum cupom disponível no momento.
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            Volte mais tarde ou clique em "Atualizar Página" para tentar
-            novamente.
+            Volte mais tarde ou clique em &quot;Atualizar Página&quot; para
+            tentar novamente.
           </p>
           <button
             onClick={handleRefresh}
