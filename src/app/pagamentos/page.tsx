@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import api from "@/lib/api";
 import axios from "axios";
 
@@ -32,8 +32,10 @@ export default function PagamentoPage() {
   const [editId, setEditId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pagamentoToDelete, setPagamentoToDelete] = useState<string | null>(null); // ID para deletar
 
-  const fetchPagamentos = async () => {
+  const fetchPagamentos = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -41,28 +43,24 @@ export default function PagamentoPage() {
       setPagamentos(response.data);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.error(
-          "Erro ao buscar pagamentos:",
-          err.response?.data || err.message
-        );
-        setError(
-          "Erro ao carregar pagamentos. Verifique a API de pagamentos. 😔"
-        );
+        const message = err.response?.data?.message || err.message;
+        setError(`Erro ao carregar pagamentos: ${message} 😔`);
+        console.error("Erro Axios ao buscar pagamentos:", err);
       } else if (err instanceof Error) {
-        console.error("Erro desconhecido ao buscar pagamentos:", err.message);
-        setError("Ocorreu um erro inesperado ao carregar pagamentos. 😔");
+        setError(`Ocorreu um erro inesperado: ${err.message} 😔`);
+        console.error("Erro inesperado ao buscar pagamentos:", err);
       } else {
-        console.error("Erro não identificado ao buscar pagamentos.");
-        setError("Ocorreu um erro desconhecido. 😔");
+        setError("Ocorreu um erro desconhecido ao carregar pagamentos. 😔");
+        console.error("Erro desconhecido ao carregar pagamentos:", err);
       }
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchPagamentos();
-  }, []);
+  }, [fetchPagamentos]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -101,22 +99,19 @@ export default function PagamentoPage() {
       fetchPagamentos();
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.error(
-          "Erro ao salvar pagamento:",
-          err.response?.data || err.message
-        );
+        const message = err.response?.data?.message || err.message;
         setError(
-          "Erro ao salvar pagamento: " +
-            (err.response?.data?.erro ||
-              err.message ||
-              "Verifique os logs do backend. 😔")
+          `Erro ao salvar pagamento: ${
+            message || "Verifique os logs do backend."
+          } 🤔`
         );
+        console.error("Erro Axios ao salvar pagamento:", err);
       } else if (err instanceof Error) {
-        console.error("Erro desconhecido ao salvar pagamento:", err.message);
-        setError("Ocorreu um erro inesperado ao salvar pagamento. 😔");
+        setError(`Ocorreu um erro inesperado ao salvar pagamento: ${err.message} 😕`);
+        console.error("Erro inesperado ao salvar pagamento:", err);
       } else {
-        console.error("Erro não identificado ao salvar pagamento.");
-        setError("Ocorreu um erro desconhecido. 😔");
+        setError("Ocorreu um erro desconhecido ao salvar pagamento. 🙁");
+        console.error("Erro desconhecido ao salvar pagamento:", err);
       }
     }
   };
@@ -131,220 +126,274 @@ export default function PagamentoPage() {
     });
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDeleteConfirm = (id: string) => {
+    setPagamentoToDelete(id);
+    setShowConfirmModal(true);
+  };
+
+  const handleDelete = async () => {
     setError(null);
-    if (!window.confirm("Tem certeza que deseja deletar este pagamento?")) {
-      return;
-    }
+    if (!pagamentoToDelete) return;
+
     try {
-      await api.data.delete(`/pagamentos/${id}`);
+      await api.data.delete(`/pagamentos/${pagamentoToDelete}`);
       fetchPagamentos();
+      setShowConfirmModal(false);
+      setPagamentoToDelete(null);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        console.error(
-          "Erro ao deletar pagamento:",
-          err.response?.data || err.message
-        );
+        const message = err.response?.data?.message || err.message;
         setError(
-          "Erro ao deletar pagamento: " +
-            (err.response?.data?.erro ||
-              err.message ||
-              "Verifique os logs do backend. 😔")
+          `Erro ao deletar pagamento: ${
+            message || "Verifique os logs do backend."
+          } 😥`
         );
+        console.error("Erro Axios ao deletar pagamento:", err);
       } else if (err instanceof Error) {
-        console.error("Erro desconhecido ao deletar pagamento:", err.message);
-        setError("Ocorreu um erro inesperado ao deletar pagamento. 😔");
+        setError(`Ocorreu um erro inesperado ao deletar pagamento: ${err.message} 🙁`);
+        console.error("Erro inesperado ao deletar pagamento:", err);
       } else {
-        console.error("Erro não identificado ao deletar pagamento.");
-        setError("Ocorreu um erro desconhecido. 😔");
+        setError("Ocorreu um erro desconhecido ao deletar pagamento. 🙁");
+        console.error("Erro não identificado ao deletar pagamento:", err);
       }
+      setShowConfirmModal(false);
+      setPagamentoToDelete(null);
     }
   };
 
+
   const isFormDisabled = !!error;
 
+  if (loading) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-green-500 mb-4"></div>
+        <p className="text-xl text-gray-700 font-semibold">Carregando pagamentos... ⏳</p>
+        <p className="text-sm text-gray-500 mt-2">Isso pode levar alguns segundos.</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-xl mx-auto max-w-md text-center border border-red-200">
+          <p className="text-2xl text-red-700 font-bold mb-4">Ops! Algo deu errado.</p>
+          <p className="text-lg text-gray-700 mb-6">{error}</p>
+          <button
+            onClick={fetchPagamentos}
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
+          >
+            Atualizar Página
+          </button>
+          <p className="text-sm text-gray-500 mt-4">Se o problema persistir, entre em contato com o suporte.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="p-4 max-w-xl mx-auto bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
-        Gerenciar Pagamentos
+    <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 text-gray-800">
+        Gerenciar Pagamentos 💳
       </h1>
 
-      {loading && (
-        <p className="text-blue-500 mb-2">Carregando pagamentos... ⏳</p>
-      )}
-      {error && <p className="text-red-500 mb-2">{error}</p>}
+      {/* Formulário de Criação/Edição */}
+      <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-200 mb-10 max-w-lg mx-auto">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+          {editId ? "Editar Pagamento" : "Novo Pagamento"}
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="valor"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Valor (R$):
+            </label>
+            <input
+              id="valor"
+              name="valor"
+              type="number"
+              value={form.valor}
+              onChange={handleChange}
+              className="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+              min="0"
+              disabled={isFormDisabled}
+              placeholder="Ex: 10.50"
+            />
+          </div>
 
-      {isFormDisabled && (
-        <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6"
-          role="alert"
-        >
-          <strong className="font-bold">Atenção!</strong>
-          <span className="block sm:inline">
-            {" "}
-            A funcionalidade de criar/editar pagamentos está temporariamente
-            indisponível devido a um problema na comunicação com o backend.
-          </span>
-        </div>
-      )}
-
-      <form
-        onSubmit={handleSubmit}
-        className={`mb-6 space-y-2 bg-blue-50 p-4 rounded shadow ${
-          isFormDisabled ? "opacity-50 cursor-not-allowed" : ""
-        } dark:bg-gray-700`}
-      >
-        <div>
-          <label
-            className="block font-semibold text-gray-900 dark:text-gray-50"
-            htmlFor="valor"
-          >
-            Valor (R$)
-          </label>
-          <input
-            id="valor"
-            name="valor"
-            type="number"
-            value={form.valor}
-            onChange={handleChange}
-            className="w-full border rounded px-2 py-1 text-gray-900 bg-white dark:text-gray-50 dark:bg-gray-800 dark:border-gray-600"
-            min="0"
-            disabled={isFormDisabled}
-          />
-        </div>
-
-        <div>
-          <label
-            className="block font-semibold text-gray-900 dark:text-gray-50"
-            htmlFor="metodo"
-          >
-            Método
-          </label>
-          <select
-            id="metodo"
-            name="metodo"
-            value={form.metodo}
-            onChange={handleChange}
-            className="w-full border rounded px-2 py-1 text-gray-900 bg-white dark:text-gray-50 dark:bg-gray-800 dark:border-gray-600"
-            disabled={isFormDisabled}
-          >
-            <option value="">Selecione o Método</option>
-            <option value="cartao_credito">Cartão de Crédito</option>
-            <option value="boleto">Boleto</option>
-            <option value="pix">Pix</option>
-          </select>
-        </div>
-
-        <div>
-          <label
-            className="block font-semibold text-gray-900 dark:text-gray-50"
-            htmlFor="status"
-          >
-            Status
-          </label>
-          <select
-            id="status"
-            name="status"
-            value={form.status}
-            onChange={handleChange}
-            className="w-full border rounded px-2 py-1 text-gray-900 bg-white dark:text-gray-50 dark:bg-gray-800 dark:border-gray-600"
-            disabled={isFormDisabled}
-          >
-            <option value="">Selecione o Status</option>
-            <option value="pendente">Pendente</option>
-            <option value="aprovado">Aprovado</option>
-            <option value="recusado">Recusado</option>
-          </select>
-        </div>
-
-        <div>
-          <label
-            className="block font-semibold text-gray-900 dark:text-gray-50"
-            htmlFor="userId"
-          >
-            ID do Usuário
-          </label>
-          <input
-            id="userId"
-            name="userId"
-            type="text"
-            value={form.userId}
-            onChange={handleChange}
-            className="w-full border rounded px-2 py-1 text-gray-900 bg-white dark:text-gray-50 dark:bg-gray-800 dark:border-gray-600"
-            disabled={isFormDisabled}
-            placeholder="Ex: clx000000000000000000000"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={isFormDisabled}
-        >
-          {editId ? "Atualizar Pagamento" : "Criar Pagamento"}
-        </button>
-      </form>
-
-      <ul className="space-y-3">
-        {!loading && pagamentos.length === 0 && (
-          <p className="text-gray-800 dark:text-gray-200">
-            Nenhum pagamento encontrado. Crie um! 🚀
-          </p>
-        )}
-
-        {pagamentos.map((pagamento) => (
-          <li
-            key={pagamento.id}
-            className="bg-blue-100 p-4 rounded shadow hover:bg-blue-200 transition cursor-default text-gray-900 dark:bg-gray-800 dark:text-white"
-          >
-            <p className="text-gray-900 dark:text-white">
-              <strong>Valor:</strong> R$ {pagamento.valor}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Método:</strong> {pagamento.metodo}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Status:</strong> {pagamento.status}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Usuário:</strong> {pagamento.user?.nome || "Desconhecido"}{" "}
-              ({pagamento.user?.email || "N/A"})
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>ID do Usuário:</strong> {pagamento.userId}
-            </p>
-            <p className="text-gray-900 dark:text-white">
-              <strong>Data:</strong>{" "}
-              {new Date(pagamento.createdAt).toLocaleDateString()}
-            </p>
-
-            <button
-              type="button"
-              onClick={() => handleEdit(pagamento)}
-              className="mr-2 mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          <div>
+            <label
+              htmlFor="metodo"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Método:
+            </label>
+            <select
+              id="metodo"
+              name="metodo"
+              value={form.metodo}
+              onChange={handleChange}
+              className="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
               disabled={isFormDisabled}
             >
-              Editar
-            </button>
+              <option value="">Selecione o Método</option>
+              <option value="cartao_credito">Cartão de Crédito</option>
+              <option value="boleto">Boleto</option>
+              <option value="pix">Pix</option>
+            </select>
+          </div>
 
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                await handleDelete(pagamento.id);
-              }}
-              className="inline"
+          <div>
+            <label
+              htmlFor="status"
+              className="block text-gray-700 text-sm font-semibold mb-2"
             >
+              Status:
+            </label>
+            <select
+              id="status"
+              name="status"
+              value={form.status}
+              onChange={handleChange}
+              className="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+              disabled={isFormDisabled}
+            >
+              <option value="">Selecione o Status</option>
+              <option value="pendente">Pendente</option>
+              <option value="aprovado">Aprovado</option>
+              <option value="recusado">Recusado</option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="userId"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              ID do Usuário:
+            </label>
+            <input
+              id="userId"
+              name="userId"
+              type="text"
+              value={form.userId}
+              onChange={handleChange}
+              className="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-800 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+              disabled={isFormDisabled}
+              placeholder="Ex: clx000000000000000000000"
+            />
+          </div>
+
+          <div className="flex justify-center gap-4 mt-6">
+            <button
+              type="submit"
+              className=" bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
+              disabled={isFormDisabled}
+            >
+              {editId ? "Atualizar Pagamento" : "Criar Pagamento"}
+            </button>
+            {editId && (
               <button
-                type="submit"
-                className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isFormDisabled}
+                type="button"
+                onClick={() => {
+                  setEditId(null);
+                  setForm({ valor: "", metodo: "", status: "", userId: "" });
+                }}
+                className="bg-gray-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-600 shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
               >
-                Deletar
+                Cancelar Edição
               </button>
-            </form>
-          </li>
-        ))}
-      </ul>
+            )}
+          </div>
+        </form>
+      </div>
+
+      {/* Lista de Pagamentos */}
+      <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-200 max-w-3xl mx-auto">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+          Histórico de Pagamentos
+        </h2>
+        {pagamentos.length === 0 ? (
+          <p className="text-center text-gray-600 text-lg">
+            Nenhum pagamento encontrado. Crie um! 🚀
+          </p>
+        ) : (
+          <ul className="space-y-4">
+            {pagamentos.map((pagamento) => (
+              <li
+                key={pagamento.id}
+                className="bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100"
+              >
+                <p className="text-gray-800">
+                  <strong>Valor:</strong> R$ {pagamento.valor.toFixed(2)}
+                </p>
+                <p className="text-gray-800">
+                  <strong>Método:</strong> {pagamento.metodo}
+                </p>
+                <p className="text-gray-800">
+                  <strong>Status:</strong> {pagamento.status}
+                </p>
+                <p className="text-gray-800">
+                  <strong>Usuário:</strong> {pagamento.user?.nome || "Desconhecido"}{" "}
+                  ({pagamento.user?.email || "N/A"})
+                </p>
+                <p className="text-gray-800">
+                  <strong>ID do Usuário:</strong> {pagamento.userId}
+                </p>
+                <p className="text-gray-800">
+                  <strong>Data:</strong>{" "}
+                  {new Date(pagamento.createdAt).toLocaleDateString("pt-BR")}
+                </p>
+
+                <div className="mt-4 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleEdit(pagamento)}
+                    className=" bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
+                  >
+                    Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteConfirm(pagamento.id)}
+                    className=" bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
+                  >
+                    Deletar
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Modal de Confirmação de Exclusão (Placeholder) */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm mx-auto">
+            <h3 className="text-xl font-bold mb-4 text-gray-800">Confirmar Exclusão</h3>
+            <p className="text-gray-700 mb-6">Tem certeza que deseja deletar este pagamento?</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleDelete} // Confirma a exclusão
+                className=" bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
+              >
+                Sim, Deletar
+              </button>
+              <button
+                onClick={() => setShowConfirmModal(false)} // Cancela
+                className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

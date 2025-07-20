@@ -313,16 +313,16 @@ const UserEditPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting} // Desabilita o botão enquanto o formulário está sendo submetido
-            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 disabled:opacity-60 transition-all duration-300"
+            className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75"
           >
-            {isSubmitting ? "Salvando... ⏳" : "Salvar Alterações ✅"}
+            {isSubmitting ? "Salvando... ⏳" : "Salvar Alterações"}
           </button>
           <button
             type="button"
             onClick={() => router.back()} // Redireciona para a página anterior ao cancelar
-            className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 transition-all duration-300"
+            className="inline-block bg-gradient-to-r from-gray-500 to-gray-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75"
           >
-            Cancelar ↩️
+            Cancelar
           </button>
         </div>
       </form>

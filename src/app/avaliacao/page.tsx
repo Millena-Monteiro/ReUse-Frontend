@@ -19,7 +19,7 @@ const AvaliacaoPage: React.FC = () => {
           onClick={() =>
             alert("Funcionalidade de avaliação a ser implementada!")
           }
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
+          className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75"
         >
           Explorar Avaliações
         </button>

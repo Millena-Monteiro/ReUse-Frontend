@@ -26,12 +26,11 @@ const UserRegistrationForm: React.FC = () => {
   const onSubmit = async (data: UserFormData) => {
     try {
       // 🎯 Faz uma requisição POST para o endpoint '/users' da API com os dados do formulário.
-      const response = await api.data.post("/users", data); // 🎯 Usando api.data
+      const response = await api.data.post("/users", data);
       console.log("Usuário cadastrado com sucesso:", response.data); // 🎉 Log de sucesso no console do navegador.
       alert("Usuário cadastrado com sucesso! 🎉"); // 🥳 Alerta de sucesso para o usuário.
       reset(); // ✨ Limpa o formulário após o envio bem-sucedido.
     } catch (err: unknown) {
-      // 🎯 CORREÇÃO: Tipando o erro como 'unknown'
       if (axios.isAxiosError(err)) {
         console.error(
           "Erro ao cadastrar usuário:",
@@ -162,7 +161,7 @@ const UserRegistrationForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting} // 🚫 Desabilita o botão enquanto o formulário está sendo enviado.
-            className="bg-reuse-green hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full focus:outline-none focus:ring-4 focus:ring-reuse-green focus:ring-opacity-50 disabled:opacity-60 transition duration-300 transform hover:scale-105" // 🎨 Estilo do botão com cores personalizadas, padding, bordas arredondadas, foco e transição.
+            className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75"
           >
             {isSubmitting ? "Cadastrando... ⏳" : "Cadastrar Usuário 🧑‍💻"}{" "}
             {/* ⏱️ Texto do botão muda durante o envio para indicar o estado. */}

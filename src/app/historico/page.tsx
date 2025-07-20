@@ -31,7 +31,7 @@ export default function HistoricoPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await api.data.get<Historico[]>("/historicos");
+      const response = await api.data.get<Historico[]>("api/historicos");
       setHistorico(response.data);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
@@ -82,9 +82,9 @@ export default function HistoricoPage() {
       };
 
       if (editId) {
-        await api.data.put(`/historicos/${editId}`, dataToSend); // 💡 Removido 'api/' no path
+        await api.data.put(`api/historicos/${editId}`, dataToSend);
       } else {
-        await api.data.post("/historicos", dataToSend);
+        await api.data.post("api/historicos", dataToSend);
       }
       setForm({
         item_id: "",
@@ -272,7 +272,7 @@ export default function HistoricoPage() {
           <div className="flex justify-center gap-4 mt-6">
             <button
               type="submit"
-              className="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
+              className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75"
             >
               {editId ? "Atualizar Histórico" : "Criar Histórico"}
             </button>
@@ -334,13 +334,13 @@ export default function HistoricoPage() {
                 <div className="mt-4 flex gap-2">
                   <button
                     onClick={() => handleEdit(item)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                    className=" bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
                   >
                     Editar
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 shadow-sm hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75"
+                    className=" bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-75 flex items-center space-x-2"
                   >
                     Deletar
                   </button>
