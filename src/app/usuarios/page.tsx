@@ -33,10 +33,10 @@ const UsuariosPage: React.FC = () => {
           );
         } else if (err instanceof Error) {
           console.error("Erro desconhecido ao buscar usuários:", err.message);
-          setError("Ocorreu um erro inesperado ao carregar os usuários. 😔");
+          setError("Ocorreu um erro inesperado ao carregar os usuários. 🙁");
         } else {
           console.error("Erro não identificado ao buscar usuários.");
-          setError("Ocorreu um erro desconhecido. 😔");
+          setError("Ocorreu um erro desconhecido. 😕");
         }
       } finally {
         setLoading(false); // 🏁 Finaliza o carregamento, independentemente do sucesso ou falha
@@ -56,7 +56,7 @@ const UsuariosPage: React.FC = () => {
         </p>
         <p className="text-sm text-gray-500 mt-2">
           Isso pode levar alguns segundos, especialmente se o servidor estiver
-          "dormindo".
+          &quot;dormindo&quot;.
         </p>
       </div>
     );
@@ -71,7 +71,7 @@ const UsuariosPage: React.FC = () => {
           </p>
           <p className="text-lg text-gray-700 mb-6">{error}</p>
           <button
-            onClick={() => window.location.reload()} // 🔄 AQUI: Função para recarregar a página
+            onClick={() => window.location.reload()}
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75"
           >
             Atualizar Página
