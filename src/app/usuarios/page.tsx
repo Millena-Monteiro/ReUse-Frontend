@@ -29,7 +29,7 @@ const UsuariosPage: React.FC = () => {
             err.response?.data || err.message
           );
           setError(
-            "O carregamento dos usuários está lento ou houve um problema temporário. Tente novamente ou atualize a página. 🔄"
+            "O carregamento dos usuários está lento ou houve um problema temporário. Tente novamente ou atualize a página. "
           );
         } else if (err instanceof Error) {
           console.error("Erro desconhecido ao buscar usuários:", err.message);
@@ -88,12 +88,12 @@ const UsuariosPage: React.FC = () => {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 text-gray-800">
-        Lista de Usuários ReUSE 🧑‍🤝‍🧑
+        Lista de Usuários ReUse
       </h1>
       {usuarios.length === 0 ? ( // 🤷‍♀️ Verifica se não há usuários
         <div className="text-center p-8 bg-white rounded-lg shadow-xl border border-gray-200 max-w-lg mx-auto">
           <p className="text-lg text-gray-600 mb-4">
-            Nenhum usuário encontrado. Crie um! 🚀
+            Nenhum usuário encontrado. Crie um!
           </p>
           {/* Posteriormente adicionar um botão para criar usuário aqui */}
           <button

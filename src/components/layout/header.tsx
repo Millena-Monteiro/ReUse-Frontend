@@ -14,6 +14,9 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex gap-6 font-medium">
+          <Link href="/login" className="hover:text-green-200">
+            Login
+          </Link>
           <Link href="/cupons" className="hover:text-green-200">
             Cupons
           </Link>

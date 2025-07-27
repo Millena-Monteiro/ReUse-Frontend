@@ -13,9 +13,7 @@ const dataApi = axios.create({
 
 // 🔗 Instância para operações de AUTENTICAÇÃO
 const authApi = axios.create({
-  baseURL:
-    process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-    "https://reuse-lwju.onrender.com",
+  baseURL: process.env.NEXT_PUBLIC_FRONTEND_API_BASE_URL || "http://localhost:3000/api", // URL BASE NEXT.JS API ROUTES
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",

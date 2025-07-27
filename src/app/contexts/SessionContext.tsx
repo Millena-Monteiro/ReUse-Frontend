@@ -1,18 +1,26 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode, useState } from "react";
+import React, { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import axios from "axios";
+import api from "@/lib/api";
 
-// 💡 Exemplo de interface para um contexto de sessão customizado
-interface CustomSessionContextType {
-  someCustomData: string;
-  setSomeCustomData: (data: string) => void;
-  // Pode adicionar aqui quaisquer outros dados ou funções que queira compartilhar
+// 👤 Interface para o tipo de usuário que será armazenado na sessão
+interface UserSession {
+  id: number | string;
+  nome: string;
+  email: string;
+  tipo_user: string;
 }
 
-// Cria o contexto com um valor padrão
-const SessionContext = createContext<CustomSessionContextType | undefined>(
-  undefined
-);
+// 💡 Interface para o contexto da sessão
+interface SessionContextType {
+  user: UserSession | null; // O usuário logado, ou null se não houver
+  setUser: (user: UserSession | null) => void; // Função para definir o usuário
+  loadingSession: boolean; // Para indicar se a sessão está sendo carregada/validada
+}
+
+// Cria o contexto com um valor padrão (null para user, false para loading)
+const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 interface SessionProviderProps {
   children: ReactNode;
@@ -22,11 +30,39 @@ interface SessionProviderProps {
 export const SessionContextProvider: React.FC<SessionProviderProps> = ({
   children,
 }) => {
-  const [someCustomData, setSomeCustomData] = useState("Dados Iniciais");
+  const [user, setUser] = useState<UserSession | null>(null);
+  const [loadingSession, setLoadingSession] = useState(true); // Começa como true para indicar que está verificando a sessão
+
+  // 💡 Efeito para tentar carregar a sessão do usuário ao montar o provedor
+  // Isso é importante para manter o usuário logado após um recarregamento de página
+  useEffect(() => {
+    const loadSession = async () => {
+      try {
+        setLoadingSession(true);
+        const response = await api.auth.get('/auth/session');
+        if (response.status === 200 && response.data) {
+          setUser(response.data);
+        }
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+          // Token inválido ou expirado, limpar sessão
+          setUser(null);
+          console.log("Sessão expirada ou inválida. Usuário deslogado.");
+        } else {
+          console.error("Erro ao carregar sessão:", err);
+        }
+      } finally {
+        setLoadingSession(false); // Finaliza o carregamento
+      }
+    };
+
+    loadSession();
+  }, []); // Executa apenas uma vez ao montar o componente
 
   const value = {
-    someCustomData,
-    setSomeCustomData,
+    user,
+    setUser,
+    loadingSession,
   };
 
   return (
@@ -44,8 +80,3 @@ export const useSessionContext = () => {
   }
   return context;
 };
-
-// Se este arquivo foi criado para envolver o NextAuth.js,
-// a abordagem preferencial é usar src/app/providers/session-provider.tsx
-// e importar useSession diretamente de 'next-auth/react'.
-// Este arquivo é para *outros* dados de sessão que não sejam de autenticação.
