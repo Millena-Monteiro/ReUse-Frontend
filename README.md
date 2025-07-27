@@ -144,7 +144,7 @@ http://localhost:3000
 - 🔗 [GitHub da API](https://github.com/BiaVB/ReUSE-)
 - 🔗 [Link do Deploy da API](https://reuse-lwju.onrender.com)
 - 🔗 [GitHub do Front-End](https://github.com/Millena-Monteiro/ReUse-Frontend.git)
-- 🔗 [Link do Deploy do Front-End](https://re-use-frontend-4cya-ko37ptztw-millena-monteiros-projects.vercel.app/)
+- 🔗 [Link do Deploy do Front-End](https://re-use-frontend-4cya-millena-monteiros-projects.vercel.app/)
 
 ---
 
